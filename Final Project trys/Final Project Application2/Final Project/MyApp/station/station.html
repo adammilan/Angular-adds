@@ -1,0 +1,124 @@
+<html>
+<head>
+	<script type="text/javascript" src="/scripts/jquery.js"></script>
+	<script src="socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+		msgNum = 0, MsgTime = 0, countFrames = 0;
+		CheckForDivText = false;
+		var msgArray = [];
+		var socket = io.connect('http://localhost:8080');
+		$(document).ready(function() {
+			var path = document.location.pathname;
+			var screenId = path.substring(path.length-1, path.length);
+			socket.on('connect',function() {
+				socket.emit('sendId',parseInt(screenId));
+			});
+			socket.emit('getMessagesByScreen', screenId);
+			socket.on('sendMessages', function(result) {
+				if (result != undefined) {
+					msgArray = result;
+					initMsgDates();
+					RunAds();
+				}
+			});
+			socket.on('MessageUpdate', function(newMsg) {
+				if (newMsg != undefined) {
+					msgArray.push(newMsg);
+					initMsgDates();
+					RunAds();
+				}
+			});
+			socket.on('getMessagesByDate', function(date) {
+				if (newMsg != undefined) {
+					msgArray.push(newMsg);
+					initMsgDates();
+					RunAds();
+				}
+			});
+		});
+		
+		initMsgDates = function() {
+			for (var i=0; i<msgArray.length; i++) {
+				for(var j=0; j<msgArray[i].timeFrame.length; j++) {
+					if (!(msgArray[i].timeFrame[j].startDate instanceof Date)) {
+						var tempStart = new Date(msgArray[i].timeFrame[j].startDate[0],msgArray[i].timeFrame[j].startDate[1],msgArray[i].timeFrame[j].startDate[2]);
+						msgArray[i].timeFrame[j].startDate = tempStart;
+						var tempEnd = new Date(msgArray[i].timeFrame[j].endDate[0],msgArray[i].timeFrame[j].endDate[1],msgArray[i].timeFrame[j].endDate[2]);
+						msgArray[i].timeFrame[j].endDate = tempEnd;
+					}
+				}
+			}
+		}
+		
+		RunAds = function() {	
+			curTime = new Date();
+			CheckIfFindAd = false;
+			CheckDays = false;
+			while (CheckIfFindAd == false) {
+				if (msgNum >= msgArray.length) {
+					msgNum = 0;
+					MsgTime = 0;
+					CheckIfFindAd = true;
+					continue;
+				}
+				for (var i=0; i<msgArray[msgNum].timeFrame.length; i++) {
+					if (curTime >= msgArray[msgNum].timeFrame[i].startDate && curTime <= msgArray[msgNum].timeFrame[i].endDate) {
+						if (curTime.getHours() >= msgArray[msgNum].timeFrame[i].startTime && curTime.getHours() <= msgArray[msgNum].timeFrame[i].endTime) {
+							for (var j=0; j<msgArray[msgNum].timeFrame[i].days.length; j++) {
+								if (curTime.getDay() == msgArray[msgNum].timeFrame[i].days[j]){
+									CheckDays = true;
+									$("#result").load(msgArray[msgNum].template);
+									if (CheckForDivText == true) {
+										CheckForDivText = false;
+										$("#result").html("");
+										$("#result2").html("");
+									}
+									for (var k=0; k<msgArray[msgNum].text.length; k++) {
+											$("#result2").append("<i><b>" + msgArray[msgNum].text[k] + "</b></i>");
+									}
+									if (msgArray[msgNum].images.length > 0) {
+										for (var k=0; k<msgArray[msgNum].images.length; k++) {
+											var image = document.createElement("img");
+											image.setAttribute("src", msgArray[msgNum].images[k]);
+											document.getElementById("result2").appendChild(image);
+										}
+									}
+									CheckForDivText = true;
+									MsgTime = msgNum;
+									CheckIfFindAd = true;
+									break;
+								}
+							}
+							if (CheckDays != true){
+								countFrames++;
+							}
+						} else {
+							countFrames++;
+						}
+					} else {
+						countFrames++;
+					}
+				}
+				if (CheckIfFindAd) {
+					countFrames = 0;
+					var tempCount = msgNum;
+					msgNum++;
+				} else {
+					var tempCount = msgNum;
+				}
+				if (countFrames >= msgArray[tempCount].timeFrame.length ) {
+					msgNum++;
+					countFrames = 0;
+				}
+			}
+			setTimeout(RunAds, msgArray[0].msgTime);
+		}
+	</script>
+</head>
+<body>
+	<div id="result">
+	</div>
+	<div id="result2">
+	</div>
+</body>
+</html>

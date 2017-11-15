@@ -1,0 +1,213 @@
+<div class="card" *ngIf="isLoading">
+  <h4 class="card-header">Loading...</h4>
+  <div class="card-block text-xs-center">
+    <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+  </div>
+</div>
+
+<app-toast [message]="toast.message"></app-toast>
+
+
+
+
+
+
+
+<div class="card" *ngIf="!isLoading">
+  <h4 class="card-header">Current Ads ({{ads.length}})</h4>
+  <div class="card-block">
+    <table class="table table-bordered table-striped" >
+      <thead class="thead-default" style="width: auto">
+      <tr style="width: 15px;"  >
+        <th>Name</th>
+        <th>Shared With Messages</th>
+        <th>Text</th>
+        <th>Pics</th>
+        <th>Path</th>
+        <th>Seconds</th>
+        <th>Start Date Time</th>
+        <th>End Date Time</th>
+        <th>Days To Show</th>
+        <th>Location</th>
+      </tr>
+      </thead>
+      <tbody *ngIf="ads.length === 0">
+      <tr>
+        <td colspan="10">There are no ads in the DB. Add a new ad below.</td>
+      </tr>
+      </tbody>
+      <tbody *ngIf="!isEditing" style="width: auto">
+      <tr *ngFor="let ad of ads" style="width: auto">
+        <td>{{ad.messageName}}</td>
+        <td>{{ad.messageID}}</td>
+        <td>{{ad.messageText}}</td>
+        <td>{{ad.messagePics}}</td>
+        <td>{{ad.messageTemplatePath}}</td>
+        <td>{{ad.messageNumOfSeconds}}</td>
+        <td>{{ad.startDateWithTime}}</td>
+        <td>{{ad.endDateWithTime}}</td>
+        <td>{{ad.numOfdaysToShow}}</td>
+        <td>{{ad.address}}</td>
+        <td>
+          <button class="btn btn-sm btn-info" (click)="enableEditing(ad)"><i class="fa fa-edit"></i> Edit </button> <button class="btn btn-sm btn-danger" (click)="deleteAd(ad)"><i class="fa fa-trash"></i> Delete</button>
+        </td>
+      </tr>
+      </tbody>
+      <tbody *ngIf="isEditing" style="width: auto;">
+      <tr>
+        <td colspan="10" style="width: auto">
+          <form class="form" #form="ngForm" (ngSubmit)="editAd(ad)" style="display:block; width: auto">
+            <div class="form-group">
+              <input class="form-control" type="text" name="messageName" [(ngModel)]="ad.messageName" placeholder="messageName" maxlength="15" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="number" name="messageNameID" [(ngModel)]="ad.messageID" placeholder="messageID" maxlength="7" min="0" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="text" name="messageText" [(ngModel)]="ad.messageText" placeholder="messageText" maxlength="20" required>
+            </div>
+            Pics:
+            <div class="form-group form-control">
+              <select style="padding-left: 0px" multiple name="messagePics" [(ngModel)]="ad.messagePics" placeholder="messagePics" required>
+                <option value="pic1">pic 1</option>
+                <option value="pic2">pic 2</option>
+                <option value="pic3">pic 3</option>
+                <option value="pic4">pic 4</option>
+                <option value="pic5">pic 5</option>
+              </select>
+            </div>
+
+            Template:
+            <div class="form-group form-control">
+              <select style="padding-left: 0px" name="messageTemplatePath" [(ngModel)]="ad.messageTemplatePath" placeholder="messageTemplatePath" required>
+                <option value="A">Template A</option>
+                <option value="B">Template B</option>
+                <option value="C">Template C</option>
+              </select>
+            </div>
+
+
+            <div class="form-group">
+              <input class="form-control" type="number" name="messageNumOfSeconds" [(ngModel)]="ad.messageNumOfSeconds" placeholder="messageNumOfSeconds"  min="0"  max="999999" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="datetime" name="startDateWithTime" [(ngModel)]="ad.startDateWithTime" placeholder="startDateWithTime" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="datetime" name="endDateWithTime" [(ngModel)]="ad.endDateWithTime" placeholder="endDateWithTime" required>
+            </div>
+            Days:
+            <div class="form-group form-control">
+              <select  multiple name="numOfdaysToShow" [(ngModel)]="ad.numOfdaysToShow" placeholder="numOfdaysToShow" required>
+                <option value="0">Sunday</option>
+                <option value="1">Monday</option>
+                <option value="2">Tuesday</option>
+                <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                <option value="5">Friday</option>
+                <option value="6">Saturday</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <input class="form-control" type="text" step="any" name="address" [(ngModel)]="ad.address" placeholder="address" required>
+            </div>
+
+
+            <button class="btn btn-sm btn-primary" type="submit" [disabled]="!form.form.valid"><i class="fa fa-floppy-o"></i> Save</button>
+          </form>
+          <button class="btn btn-sm btn-warning" (click)="cancelEditing()"><i class="fa fa-times"></i> Cancel</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="card" *ngIf="!isEditing">
+  <h4 class="card-header">Add new ad</h4>
+  <div class="card-block">
+    <form class="form" [formGroup]="addAdForm" (ngSubmit)="addAd()" style="text-align:center">
+
+      <!--Add message Name-->
+      <div class="form-group">
+        <input class="form-control" type="text" name="messageName" formControlName="messageName" maxlength="15" placeholder="Name">
+      </div>
+
+      <!--Add MessageID-->
+      <div class="form-group">
+        <input class="form-control" type="number" name="messageID" formControlName="messageID" placeholder="ID" min="0" max="99999" maxlength="5">
+      </div>
+
+      <!--Add message Text-->
+      <div class="form-text">
+        <input class="form-control" type="text" name="messageText" formControlName="messageText" maxlength="20" placeholder="Text">
+      </div>
+
+      <!--Add Pics-->
+      Pics:
+      <div class="form-group">
+        <select style="padding-left: 0px" size="5" multiple name="messagePics" formControlName="messagePics">
+          <option value="pic1">pic 1</option>
+          <option value="pic2">pic 2</option>
+          <option value="pic3">pic 3</option>
+          <option value="pic4">pic 4</option>
+          <option value="pic5">pic 5</option>
+        </select>
+      </div>
+
+      <!--Add Template Path-->
+      Template:
+      <div class="form-group">
+        <select class="form-control" id="messageTemplatePath" name="messageTemplatePath" formControlName="messageTemplatePath" >
+          <option value="A">Template One</option>
+          <option value="B">Template Two</option>
+          <option value="C">Template Three</option>
+        </select>
+      </div>
+
+
+      <!--Add number of Seconds-->
+      <div class="form-group">
+        <input class="form-control" type="number" name="messageNumOfSeconds" formControlName="messageNumOfSeconds" placeholder="Ad Seconds" min="0" max="9999">
+      </div>
+
+      <!--Add Start Date & Time-->
+      Start Date and Time:
+      <div class="form-group">
+        <input class="form-control" type="datetime-local" value="2016-08-19 13:45:00" id="startDateWithTime" name="startDateWithTime" formControlName="startDateWithTime" >
+      </div>
+
+      <!--Add End Date & Time-->
+      End Date and Time:
+      <div class="form-group">
+        <input class="form-control" type="datetime-local" value="2017-08-19 13:45:00" id="endDateWithTime" name="endDateWithTime" formControlName="endDateWithTime">
+      </div>
+
+      <!--Add Days-->
+      Days:
+      <div class="form-group">
+        <select  multiple name="numOfdaysToShow" size="7" formControlName="numOfdaysToShow">
+          <option value="0">Sunday</option>
+          <option value="1">Monday</option>
+          <option value="2">Tuesday</option>
+          <option value="3">Wednesday</option>
+          <option value="4">Thursday</option>
+          <option value="5">Friday</option>
+          <option value="6">Saturday</option>
+        </select>
+      </div>
+
+      <!--Address-->
+      Address:
+      <div class="form-text">
+        <input class="form-control" type="text" step="any" name="address" formControlName="address" placeholder="address">
+      </div>
+
+
+      <br>
+
+      <button class="btn btn-primary" type="submit" [disabled]="!addAdForm.valid"><i class="fa fa-floppy-o"></i> Add</button>
+    </form>
+  </div>
+</div>

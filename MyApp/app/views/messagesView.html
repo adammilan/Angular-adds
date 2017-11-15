@@ -1,0 +1,97 @@
+<div class="messages view indent">
+	<div id="containerDiv" class="container">
+		<header>
+			<h3>All Messages</h3>
+		</header>
+		<div class="navbar-inner toolbar">
+			<div class="span3">
+				<label>Search By Station: <input ng-model="a_stationId"></label>
+			</div>
+			<div class="span3">
+				<label>Search By Text: <input ng-model="a_text"></label>
+			</div>
+			<div class="span3">
+				<label>Search By Template: <input ng-model="a_template"></label>
+			</div>
+		</div>
+		<div class="row" id="rawStyle">
+			<div class="span12 repeat-animation" data-ng-repeat="msg in messages | filter:{screensId:a_stationId, text:a_text, template:'template'+a_template} | orderBy:'name'">
+				<div class="span2">
+                    <h4>{{ msg.name }}</h4>
+                </div>
+				<a href="#/editMessage/{{ msg.name }}"><button class="btn btn-primary">Edit</button></a>
+				<table class="table table-hover table-striped table-condensed table-bordered ordersTable">
+					<thead>
+						<tr>
+							<th>Property</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr> 
+							<td>Message name</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>{{ msg.name }}</td>
+						</tr>
+						<tr>
+							<td>Stations</td>
+							<td></td>
+						</tr>
+						<tr ng-repeat="screen in msg.screensId">
+							<td></td>
+							<td>{{ screen }}</td>
+						<tr>
+							<td>Text</td>
+							<td></td>
+						</tr>
+						<tr ng-repeat="txt in msg.text">
+							<td></td>
+							<td>{{ txt }}</td>
+						</tr>
+						<tr>
+							<td>Images</td>
+							<td></td>
+						</tr>
+						<tr ng-repeat="img in msg.images">
+							<td></td>
+							<td>{{ img }}</td>
+						</tr>
+						<tr>
+							<td>Template</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>{{msg.template}}</td>
+						</tr>
+						<tr>
+							<td>Message Time</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>{{msg.msgTime}}</td>
+						</tr>
+						<tr>
+							<td>Time Frames</td>
+							<td></td>
+						</tr>
+						<tr ng-repeat="times in msg.timeFrame">
+							<td></td>
+							<td>
+								StartDate:	{{times.startDate | date:'MM/dd/yyyy'}}<br>
+								EndDate:	{{times.endDate | date:'MM/dd/yyyy'}}<br>
+								Days: <span ng-repeat="day in times.days">{{day}}</span><br>
+								StartTime:	{{times.startTime}}<br>
+								EndTime:	{{times.endTime}}
+							</td>								
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

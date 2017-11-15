@@ -1,0 +1,27 @@
+<div class="statistics view indent">
+	<div id="containerDiv" class="container">
+        <header>
+            <h3>Statistics Preview Displayer</h3>
+        </header>
+		<div>
+			<fusioncharts 
+				id="mychartcontainer"
+				chartid="mychart"
+				width="800" 
+				height="400"
+				type="column2d"
+				datasource="{{ graph1 }}"
+			></fusioncharts>
+		</div>
+		<br>
+		<div>
+			<fusioncharts
+				width="600" 
+				height="400"
+				type="pie3d"
+				datasource="{{ graph2 }}"
+			></fusioncharts>
+		</div>
+		<a href="#/preferences" class="btn btn-primary" id="aStyle">Go back</a>
+	</div>
+</div>

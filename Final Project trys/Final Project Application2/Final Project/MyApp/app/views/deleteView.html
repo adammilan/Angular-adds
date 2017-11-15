@@ -1,0 +1,27 @@
+<div class="delete view indent">
+	<div id="containerDiv" class="container">
+		<header>
+			<h3>Delete Messages</h3>
+		</header>
+		<div class="row" id="rawStyle">
+			<div class="span12 repeat-animation" >
+				<div class="span2">
+                </div>
+				<table class="table table-hover table-striped table-condensed table-bordered ordersTable">
+					<thead>
+						<tr>
+							<th>Message name</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat="msg in Messages">
+							<td>{{ msg.name }}</td>
+							<td id="deletetd"><button class="btn btn-success" data-ng-click="deleteMessage(msg.name)">Delete</button></td>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<a href="#/preferences" class="btn btn-primary" id="aStyle">Go back</a>
+	</div>
+</div>

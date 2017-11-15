@@ -1,0 +1,78 @@
+<html data-ng-app="myApp">
+	<head>
+		<title>Messages Application</title>
+		
+		<!-- CSS files -->
+		<link href="/content/bootstrap.css" rel="stylesheet" />
+		<link href="/content/bootstrap-responsive.min.css" rel="stylesheet" />
+		<link href="/content/styles.css" rel="stylesheet" />
+		<link href="/content/animations.css" rel="stylesheet" />
+		
+		<!-- 3rd party libraries -->
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script src="Donut3D.js"></script>
+		<script src="/scripts/Donut3D.js"> </script>
+		<script src="/scripts/jquery.js"></script>
+		<script src="/scripts/jquery.min.js"></script>
+		<script src="/scripts/d3.min.js"></script>
+		<script src="/scripts/d3.js"></script>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<script src="/scripts/lodash.js"></script>
+		<script src="/scripts/angular.min.js"></script>
+		<script src="/scripts/angular-fusioncharts.min.js"></script>
+		<script src="/scripts/angular-route.js"></script>
+		<script src="/scripts/angular-animate.js"></script>
+		<script src="/scripts/angular-ui-bootstrap.js"></script>
+		<script src="/scripts/tweenMax.min.js"></script>
+		<script src="/scripts/q.min.js"></script>
+		<script src="/scripts/breeze.min.js"></script>
+		<script src="/scripts/to$q.js"></script>
+		<script src="/scripts/angular-simple-logger.js"></script>
+		<script src='//maps.googleapis.com/maps/api/js'></script>
+		<script src="/scripts/angular-google-maps.js"></script>
+		<script src="/scripts/angular-google-maps.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		
+		<!-- App libs -->
+		<script src="/app/app.js"></script>
+		<script src="/app/controllers/controllers.js"></script>
+		<script src="/app/factory/factory.js"></script>
+		<script src="/app/services/services.js"></script>
+		<script src="/app/directives/directives.js"></script>
+	</head>
+	
+	<body>
+		<header>
+		</header>
+		<nav class="navbar navbar-fixed-top" data-ng-controller="NavbarController">
+			<div class="navbar-inner" ng-if="showNav">
+				<div class="container">
+					<a class="brand " href="#/">
+						<img src="content/images/logo.jpg" alt="logo" height="48" width="48"> {{ appTitle }}
+					</a>
+					<ul class="nav nav-pills navBarPadding">
+						<li><a href="#/">Home</a></li>
+						<li data-ng-class="{'active':highlight('/about')}"><a href="#/about">About</a></li>
+						<li data-ng-class="{'active':highlight('/messages')}"><a href="#/messages">Messages</a></li>
+						<li data-ng-class="{'active':highlight('/preferences')}"><a href="#/preferences">Preferences</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<section data-ng-view="" id="ng-view" class="slide-animation"></section>
+		<!--<aside ng-if="showNav">-->
+			<!--<img src="content/images/elad.jpg" width="100" height="100">-->
+			<!--<p>Elad Doocker</p>-->
+			<!--<img src="content/images/gel.jpg" width="100" height="100">-->
+			<!--<p>Gel Sosin</p>-->
+			<!--<img src="content/images/guy.jpg" width="100" height="100">-->
+			<!--<p>Guy Ben-Shahar</p>-->
+		<!--</aside>-->
+		<footer data-ng-controller="NavbarController" ng-if="showNav">
+			<div class="container">
+				<br>
+				<p><font color="white">&#169; Copyright - {{ authors }}</font></p>
+			</div>
+		</footer>
+	</body>
+</html>

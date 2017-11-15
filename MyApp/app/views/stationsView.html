@@ -1,0 +1,28 @@
+<div class="stations view indent">
+	<div id="containerDiv" class="container">
+        <header>
+            <h3>Station Preview Displayer</h3>
+        </header>
+		<div class="span3">
+			<label>Select the station:</label>
+			<select data-ng-model="stationId">
+				<option ng-repeat="stationNum in stationsArray">
+					station {{ stationNum }}
+				</option>
+			</select>
+		</div>
+		<div class="span3">
+			<label>Select the date:</label>
+			<input type="date" id="name" data-ng-model="date">
+		</div>
+		<div class="span3">
+			<br>
+			<button id="submitStation" class="btn btn-primary" type="button"
+				data-ng-disabled="!stationId || !date" data-ng-click="displayStation()"> Display </button>
+		</div>
+		<div id="iframeDiv" class="row">
+			<iframe src="{{ address }}"></iframe>
+		</div>
+	</div>
+</div>
+

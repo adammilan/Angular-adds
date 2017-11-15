@@ -1,0 +1,107 @@
+<div class="view">
+    <div id="containerDiv" class="container">
+        <header>
+            <h3>{{ title }} Message</h3>
+        </header>
+        <form name="editForm" novalidate>
+            <div>
+                <div class="input-group">
+                    <table id="widthTable">
+                        <tr>
+                            <td><font size="2.5"><b>Message name:</b></font></td>
+                            <td><input type="text" id="name" class="form-control" data-ng-model="message.name" required>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="input-group">
+                    <table id="widthTable">
+                        <tr>
+                            <td><font size="2.5"><b>City:</b></font></td>
+                            <td><input type="text" id="name" class="form-control" data-ng-model="message.city" required>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="input-group">
+                    <table id="widthTable">
+                        <tr>
+                            <td><font size="2.5"><b>Latitude:</b></font></td>
+                            <td><input type="text" id="name" class="form-control" data-ng-model="message.lat" required>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="input-group">
+                    <table id="widthTable">
+                        <tr>
+                            <td><font size="2.5"><b>Longtitude:</b></font></td>
+                            <td><input type="text" id="name" class="form-control" data-ng-model="message.long" required>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"></span>
+                    <table id="widthTable">
+                        <tr>
+                            <td><font size="2.5"><b>Zip Code:</b></font></td>
+                        </tr>
+                        <tr ng-repeat="screen in message.screensId">
+                            <td><font size="2.5">&#9898;&nbsp;ZipCode {{ screen }}</font></td>
+                            <td ng-click="deleteScreen(screen)"><a>&#9746;</a></td>
+                        </tr>
+                    </table>
+                    <input data-ng-model="zipCode"></input>
+                    <button ng-click="addZipCode(zipCode)">Add Station</button>
+                </div>
+                <br>
+                <div class="input-group">
+                    <table id="widthTable">
+                        <tr>
+                            <td><font size="2.5"><b>Message Text:</b></font></td>
+                        </tr>
+                        <tr ng-repeat="txt in message.text">
+                            <td><input type="text" id="name" class="form-control inputLong" data-ng-model="txt"></td>
+                            <td ng-click="deleteText(txt)"><a>&#9746;</a></td>
+                        </tr>
+                    </table>
+                    <input data-ng-model="str"></input>
+                    <button ng-click="addText(str)">Add Text</button>
+                </div>
+                <br>
+                <br>
+                <div class="input-group">
+                    <table id="widthTable">
+                        <tr>
+                            <td><font size="2.5"><b>Message Template:</b></font></td>
+                            <td><input type="text" id="name" class="form-control" data-ng-model="message.template"
+                                       required></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="span3">
+            <button type="submit" class="btn btn-primary" data-ng-click="navigate('/messages')">{{cancelButton}}
+            </button>
+            &nbsp;&nbsp;
+        </div>
+        <div class="span3" data-ng-if="newMsg == false">
+            <button type="submit" class="btn btn-primary" data-ng-click="saveAdd()"
+                    ng-disabled="editForm.$invalid || !editForm.$dirty">{{buttonText}}
+            </button>
+            &nbsp;&nbsp;
+        </div>
+        <div class="span3" data-ng-if="newMsg == true">
+            <button type="submit" class="btn btn-primary" data-ng-click="save()"
+                    ng-disabled="editForm.$invalid || !editForm.$dirty">{{buttonText}}
+            </button>
+            &nbsp;&nbsp;
+        </div>
+    </div>
+    </form>
+</div>
+</div>

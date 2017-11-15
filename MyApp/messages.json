@@ -1,0 +1,42 @@
+{ 	
+    "screensId":[1,2],
+	"name":"msg1",
+	"text":["Do you feel safe in campus?","Want to?","Learn to keep yourself safe","Free food and prizes"],
+	"images":["http://www.iconarchive.com/download/i2338/aha-soft/people/people.ico","https://pbs.twimg.com/profile_images/547200812594651136/oI95HPDP_400x400.png"],
+	"template":"/html/templateA.html",
+	"msgTime":5000,
+	"timeFrame":[
+		{ "startDate" : [2016,0,1], "endDate" : [2016,11,31], "days" : [1], "startTime" : 6, "endTime" : 12},
+		{ "startDate" : [2016,0,1], "endDate" : [2016,11,31], "days" : [3], "startTime" : 13, "endTime" : 20}]	}	
+{	"screensId":[1,3],
+	"name":"msg2",
+	"text":["All SERVICE ADVERTISEMENT","JAMES COMPUTER SERVICE CO.","Computer serice,repair,update,web","Page design all photo and video needs","Best equipment and service","928-345-2922 Office","928-503-0510 Cell","moreGOD@aol.com","www.webdesign.com","Not happy? you will get your money back"],
+	"images":["http://computerrepairsgeeks.com/wp-content/uploads/2015/10/computer-repairs-1.jpg"],
+	"template":"/html/templateB.html",
+	"msgTime":5000,
+	"timeFrame":[
+		{ "startDate" : [2016,2,1], "endDate" : [2016,3,30], "days" : [2,3], "startTime" : 10, "endTime" : 16}]	}
+{ 	"screensId":[2,3],
+	"name":"msg3",
+	"text":[],
+	"images":[],
+	"template":"/html/templateC.html",
+	"msgTime":5000,
+	"timeFrame":[
+		{ "startDate" : [2016,4,1], "endDate" : [2016,5,15], "days" : [0,1,2,3,4,5,6], "startTime" : 8, "endTime" : 22}]	}
+{ 	"screensId":[1],
+	"name":"msg4",
+	"text":["ROBIN HOOD RESTAURANT","Best pizza in the city"],
+	"images":[],
+	"template":"/html/templateA.html",
+	"msgTime":5000,
+	"timeFrame":[
+		{ "startDate" : [2016,2,29], "endDate" : [2016,3,15], "days" : [1], "startTime" : 15, "endTime" : 19}]	}			
+{ 	"screensId":[3],
+	"name":"msg5",
+	"text":["SPECIAL DEAL","Fly from NYC to LAX","$399!!!!","Up to 20% off","Book before","December 15,2015","Details at flyabc.com"],
+	"images":["http://www.iconsdb.com/icons/preview/royal-blue/airplane-6-xxl.png","http://www.avjobs.com/images/v_png_v5/v_collection_png/256x256/shadow/businesspeople2.png"],
+	"template":"/html/templateB.html",
+	"msgTime":5000,
+	"timeFrame":[
+		{ "startDate" : [2016,3,1], "endDate" : [2016,3,30], "days" : [1,2,3], "startTime" : 1, "endTime" : 23}]	} 

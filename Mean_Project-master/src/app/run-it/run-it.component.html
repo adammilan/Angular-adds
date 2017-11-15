@@ -1,0 +1,32 @@
+<div class="card" *ngIf="isLoading">
+  <h4 class="card-header">Loading...</h4>
+  <div class="card-block text-xs-center">
+    <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+  </div>
+</div>
+
+<div class="card">
+  <h4 class="card-header">Run it!</h4>
+
+
+  <div class="general-desc-wrap">
+    <div class="card" *ngIf="!isLoading">
+      <div class="card-block">
+        <tbody *ngIf="ads.length === 0">
+        <p>There are no ads in the DB<p>
+        </tbody>
+
+        <div class="item-wrap">
+          <div *ngFor="let ad of ads" class="item" [ngStyle]="setBorderColor(ad)">
+            <h2>{{ad.messageName}}</h2>
+            <img onclick="this.css.changeImage(this);" class="thumb" src="http://i67.tinypic.com/ur3pt.png" width="140px"height="120px"/>
+            <span class="close-icon" ng-click="closeImage(this);"></span>
+            <p>Text:{{ad.messageText}}</p>
+            <div>Message ID: {{ad.messageID}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

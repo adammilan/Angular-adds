@@ -1,0 +1,147 @@
+<div class="view">
+    <div id="containerDiv" class="container">
+        <header>
+            <h3>{{ title }} Message</h3>
+        </header>
+        <form name="editForm" novalidate>
+			<div>
+				<div class="input-group">
+					<table id="widthTable">
+						<tr>
+							<td><font size="2.5"><b>Message name:</b></font></td>
+							<td><input type="text" id="name" class="form-control" data-ng-model="message.name" required></td>
+						</tr>
+					</table>
+				</div>
+				<div class="input-group">
+					<table id="widthTable">
+						<tr>
+							<td><font size="2.5"><b>City:</b></font></td>
+							<td><input type="text" id="name" class="form-control" data-ng-model="message.city" required></td>
+						</tr>
+					</table>
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon"></span>
+					<table id="widthTable">
+						<tr>
+							<td><font size="2.5"><b>Message stations:</b></font></td>
+						</tr>
+						<tr ng-repeat="screen in message.screensId">
+							<td><font size="2.5">&#9898;&nbsp;Station {{ screen }}</font></td>
+							<td ng-click="deleteScreen(screen)"><a>&#9746;</a></td>
+						</tr>
+					</table>
+					<input data-ng-model="station"></input>
+					<button ng-click="addStation(station)">Add Station</button>
+				</div>
+				<br>
+				<div class="input-group">
+					<table id="widthTable">
+						<tr>
+							<td><font size="2.5"><b>Message Text:</b></font></td>
+						</tr>
+						<tr ng-repeat="txt in message.text">
+							<td><input type="text" id="name" class="form-control inputLong" data-ng-model="txt"></td>
+							<td ng-click="deleteText(txt)"><a>&#9746;</a></td>
+						</tr>
+					</table>
+					<input data-ng-model="str"></input>
+					<button ng-click="addText(str)">Add Text</button>
+				</div>
+				<br>
+				<div class="input-group">
+					<table id="widthTable">
+						<tr>
+							<td><font size="2.5"><b>Message Images:</b></font></td>
+						</tr>
+						<tr ng-repeat="img in message.images">
+							<td><input type="text" id="name" class="form-control inputLong" data-ng-model="img"></td>
+							<td ng-click="deleteImage(img)"><a>&#9746;</a></td>
+						</tr>
+					</table>
+					<input data-ng-model="image"></input>
+					<button ng-click="addImage(image)">Add Image</button>
+				</div>
+				<br>
+				<div class="input-group">
+					<table id="widthTable">
+						<tr>
+							<td><font size="2.5"><b>Message Template:</b></font></td>
+							<td><input type="text" id="name" class="form-control" data-ng-model="message.template" required></td>
+						</tr>
+						<tr>
+							<td><font size="2.5"><b>Message Display Time (in ms):</b></font></td>
+							<td><input type="number" id="name" class="form-control" data-ng-model="message.msgTime" min="5000" max="10000" step="1000" data-ng-change="ConvertToInt('mst',0,0)" required></td>
+						</tr>
+					</table>
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon"><font size="2.5"><b>Message Time Frames:</b></font></span>
+				</div>
+				<br>
+				<div class="input-group" ng-repeat="time in message.timeFrame">
+					<div class="span12">
+						<table id="widthTable">
+							<tr>
+								<td><font size="2.5"><b>Time frame {{ $index+1 }}:</b></font></td>
+								<td ng-click="deleteTimeFrame($index)"><a>&#9746;</a></td>
+							</tr>
+						</table>
+					</div>
+					<div class="span12">
+						<table id="widthTable">
+							<tr>
+								<td><font size="2.5"><b>Start Date:</b></font></td>
+								<td><input type="date" id="name" class="form-control" data-ng-model="message.timeFrame[$index].startDate" required></td>
+							</tr>
+							<tr>
+								<td><font size="2.5"><b>End Date:</b></font></td>
+								<td><input type="date" id="name" class="form-control" data-ng-model="message.timeFrame[$index].endDate" required></td>
+							</tr>
+						</table>
+					</div>
+					<div class="span12">
+						<span><font size=2.5"><b>Days:</b></font></span>
+						<ul style="list-style-type:none">
+							<li ng-repeat="day in optionDays[$index]">	
+								<label><input type="checkbox" ng-model="day.flag">	{{ day.day }}</label>
+							</li>
+						</select>
+					</div>
+					<div class="span12">
+						<table id="widthTable">
+							<tr>
+								<td><font size="2.5"><b>Start Hour:</b></font></td>
+								<td><input type="number" id="name" class="form-control" data-ng-model="message.timeFrame[$index].startTime" min="0" max="23" step="1" data-ng-change="ConvertToInt('st',0,$index)" required></td>
+							</tr>
+							<tr>
+								<td><font size="2.5"><b>End Hour:</b></font></td>
+								<td><input type="number" id="name" class="form-control" data-ng-model="message.timeFrame[$index].endTime" min="0" max="23" step="1" data-ng-change="('en',0,$index)" required></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+				<div class="span12">
+					<button data-ng-click="addTimeFrame()">Add Time Frame</button>
+				</div>
+			</div>
+			<br>
+			<div class="container">
+				<div class="span3">
+					<button type="submit" class="btn btn-primary" data-ng-click="navigate('/messages')">{{cancelButton}}</button>
+					&nbsp;&nbsp;
+				</div>
+				<div class="span3" data-ng-if="newMsg == false">
+					<button type="submit" class="btn btn-primary" data-ng-click="saveAdd()" ng-disabled="editForm.$invalid || !editForm.$dirty">{{buttonText}}</button>
+					&nbsp;&nbsp;
+				</div>
+				<div class="span3" data-ng-if="newMsg == true">
+					<button type="submit" class="btn btn-primary" data-ng-click="save()" ng-disabled="editForm.$invalid || !editForm.$dirty">{{buttonText}}</button>
+					&nbsp;&nbsp;
+				</div>
+            </div>
+		</form>
+	</div>
+</div>

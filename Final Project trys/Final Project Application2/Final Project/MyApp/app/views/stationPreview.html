@@ -1,0 +1,11 @@
+<div id="result" ng-include="template">
+</div>
+<div id="result2">
+	<p>
+		<h3 data-ng-repeat="txt in text"> {{txt}} </h3>
+		<br>
+	</p>
+	<p data-ng-repeat="img in images">
+		<img ng-src="{{img}}">
+	</p>
+</div>
